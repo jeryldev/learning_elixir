@@ -37,6 +37,8 @@ defmodule Cache do
   end
 
   defp set(value, cache, n) do
-    Agent.get_and_update(cache, fn map -> {value, Map.put(map, n, value)} end)
+    Agent.get_and_update(cache, fn map ->
+      {value, Map.put(map, n, value)}
+    end)
   end
 end
