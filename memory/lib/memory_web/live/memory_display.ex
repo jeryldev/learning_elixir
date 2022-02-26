@@ -14,13 +14,22 @@ defmodule MemoryWeb.Live.MemoryDisplay do
     assign(socket, :memory, :erlang.memory())
   end
 
+  defp format_integer(value) do
+    value
+    |> Integer.to_charlist()
+    |> Enum.reverse()
+    |> Enum.chunk_every(3)
+    |> Enum.join(",")
+    |> String.reverse()
+  end
+
   def render(assigns) do
     ~L"""
     <table>
       <%= for { name, value } <- assigns.memory do %>
         <tr>
           <th><%= name %></th>
-          <td><%= value %></td>
+          <td><%= format_integer(value) %></td>
         </tr>
       <% end %>
     </table>
